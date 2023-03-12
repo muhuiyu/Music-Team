@@ -217,7 +217,7 @@ class DataProvider extends BaseProvider {
     }
   }
 
-  Future<List<TeamNotification>> fetchNotifications() {
+  Future<List<TeamNotification>> fetchNotifications() async {
     // TODO: change to real data
     return Future(() => []);
   }
