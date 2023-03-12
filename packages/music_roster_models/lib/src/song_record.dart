@@ -1,4 +1,8 @@
-import 'package:music_roster_admin/api/providers/data_provider.dart';
+class SongRecordKey {
+  static const String id = 'id';
+  static const String name = 'name';
+  static const String note = 'note';
+}
 
 class SongRecord {
   final String songId;
@@ -12,18 +16,17 @@ class SongRecord {
   });
 
   factory SongRecord.fromJson(Map<String, dynamic> json) {
-    final String note = json[DataProviderKey.note] ?? '';
     return SongRecord(
-        songId: json[DataProviderKey.id] as String,
-        songName: json[DataProviderKey.name] as String,
-        note: note);
+        songId: json[SongRecordKey.id] as String,
+        songName: json[SongRecordKey.name] as String,
+        note: json[SongRecordKey.note] ?? '');
   }
 
   Map<String, dynamic> toJson() {
     return {
-      DataProviderKey.id: songId,
-      DataProviderKey.name: songName,
-      DataProviderKey.note: note,
+      SongRecordKey.id: songId,
+      SongRecordKey.name: songName,
+      SongRecordKey.note: note,
     };
   }
 }

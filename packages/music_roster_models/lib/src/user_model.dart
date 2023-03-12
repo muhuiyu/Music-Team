@@ -1,12 +1,18 @@
-import 'package:music_roster_admin/api/providers/data_provider.dart';
-import 'package:music_roster_admin/models/user/user_role.dart';
+import 'user_role.dart';
+
+class UserModelKey {
+  static const String name = 'name';
+  static const String email = 'email';
+  static const String phone = 'phone';
+  static const String roles = 'roles';
+}
 
 class UserModel {
   final String uid;
   String name;
   String email;
   String phone;
-  // String? imageUrl;
+  String? imageUrl;
   List<UserRole> roles;
 
   UserModel({
@@ -14,7 +20,7 @@ class UserModel {
     required this.name,
     required this.email,
     required this.phone,
-    // this.imageUrl,
+    this.imageUrl,
     required this.roles,
   });
 
@@ -24,7 +30,7 @@ class UserModel {
   factory UserModel.fromJson(String id, Map<String, dynamic> json) {
     List<UserRole> roles = [];
 
-    (json[DataProviderKey.roles] as List<dynamic>).forEach((element) {
+    (json[UserModelKey.roles] as List<dynamic>).forEach((element) {
       final role = UserRole.getUserRoleFromString(element as String);
       if (role != null) {
         roles.add(role);
@@ -33,18 +39,18 @@ class UserModel {
 
     return UserModel(
         uid: id,
-        name: json[DataProviderKey.name],
-        email: json[DataProviderKey.email],
-        phone: json[DataProviderKey.phone],
+        name: json[UserModelKey.name],
+        email: json[UserModelKey.email],
+        phone: json[UserModelKey.phone],
         roles: roles);
   }
 
   Map<String, dynamic> get toJson {
     return {
-      DataProviderKey.name: name,
-      DataProviderKey.email: email,
-      DataProviderKey.phone: phone,
-      DataProviderKey.roles: roles.map((e) => e.key).toList(),
+      UserModelKey.name: name,
+      UserModelKey.email: email,
+      UserModelKey.phone: phone,
+      UserModelKey.roles: roles.map((e) => e.key).toList(),
     };
   }
 }

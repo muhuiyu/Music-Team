@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music_roster_admin/constants/constants.dart';
 
 enum UserRole {
   piano,
@@ -38,46 +37,46 @@ enum UserRole {
   String get name {
     switch (this) {
       case UserRole.piano:
-        return AppText.piano;
+        return 'piano';
       case UserRole.lead:
-        return AppText.lead;
+        return 'lead';
       case UserRole.drums:
-        return AppText.drums;
+        return 'drums';
       case UserRole.guitar:
-        return AppText.guitar;
+        return 'guitar';
       case UserRole.bass:
-        return AppText.bass;
+        return 'bass';
       case UserRole.vocal:
-        return AppText.vocal;
+        return 'vocal';
       case UserRole.cajon:
-        return AppText.cajon;
+        return 'cajon';
       case UserRole.violin:
-        return AppText.voilin;
+        return 'voilin';
       case UserRole.pa:
-        return AppText.pa;
+        return 'pa';
     }
   }
 
   String get key {
     switch (this) {
       case UserRole.piano:
-        return AppText.piano.toLowerCase();
+        return 'piano';
       case UserRole.lead:
-        return AppText.lead.toLowerCase();
+        return 'lead';
       case UserRole.drums:
-        return AppText.drums.toLowerCase();
+        return 'drums';
       case UserRole.guitar:
-        return AppText.guitar.toLowerCase();
+        return 'guitar';
       case UserRole.bass:
-        return AppText.bass.toLowerCase();
+        return 'bass';
       case UserRole.vocal:
-        return AppText.vocal.toLowerCase();
+        return 'vocal';
       case UserRole.cajon:
-        return AppText.cajon.toLowerCase();
+        return 'cajon';
       case UserRole.violin:
-        return AppText.voilin.toLowerCase();
+        return 'voilin';
       case UserRole.pa:
-        return AppText.pa.toLowerCase();
+        return 'pa';
     }
   }
 

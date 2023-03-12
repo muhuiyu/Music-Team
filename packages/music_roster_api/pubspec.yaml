@@ -1,4 +1,4 @@
-name: music_roster_models
+name: music_roster_api
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
 # repository: https://github.com/my_org/my_repo
@@ -15,7 +15,21 @@ dependencies:
 
   year_month_day:
     path: ../year_month_day
+  music_roster_models:
+    path: ../music_roster_models
 
+  firebase_core: ^2.7.0
+  firebase_auth: ^4.2.9
+  google_sign_in: ^6.0.2
+  shared_preferences: ^2.0.18
+  flutter_spinkit: ^5.1.0
+  cloud_firestore: ^4.4.4
+  overlay_support: ^2.1.0
+  device_info_plus: ^8.1.0
+  package_info_plus: ^3.0.3
+  get: ^4.6.5
+  provider: ^6.0.5
+  get_it: ^7.2.0
 
 dev_dependencies:
   lints: ^2.0.0

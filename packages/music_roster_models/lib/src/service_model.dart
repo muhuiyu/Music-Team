@@ -1,10 +1,14 @@
-import 'package:music_roster_admin/api/providers/data_provider.dart';
-import '../../../../apps/shared/models/year_month_day.dart';
-import 'package:music_roster_admin/models/service/song_record.dart';
-import 'package:music_roster_admin/models/user/user_model.dart';
-import 'package:music_roster_admin/models/user/user_role.dart';
-
+import 'package:year_month_day/year_month_day.dart';
 import 'user_model.dart';
+import 'user_role.dart';
+import 'song_record.dart';
+
+class ServiceModelKey {
+  static const String monthGroup = 'monthGroup';
+  static const String rehearsalDates = 'rehearsalDates';
+  static const String duty = 'duty';
+  static const String songs = 'songs';
+}
 
 class ServiceModel implements Comparable<ServiceModel> {
   YearMonthDay date;
@@ -26,18 +30,18 @@ class ServiceModel implements Comparable<ServiceModel> {
   factory ServiceModel.fromJson(
       Map<String, dynamic> json, Map<String, UserModel> userMap) {
     final YearMonthDay date = YearMonthDay(
-        year: json[DataProviderKey.year],
-        month: json[DataProviderKey.month],
-        day: json[DataProviderKey.day]);
+        year: json[YearMonthDayKey.year],
+        month: json[YearMonthDayKey.month],
+        day: json[YearMonthDayKey.day]);
 
-    List<YearMonthDay> rehearsalDates = (json[DataProviderKey.rehearsalDates]
+    List<YearMonthDay> rehearsalDates = (json[ServiceModelKey.rehearsalDates]
             as List<dynamic>)
         .map(
             (element) => YearMonthDay.fromJson(element as Map<String, dynamic>))
         .toList();
 
     Map<UserRole, List<UserModel>> duty = {};
-    (json[DataProviderKey.duty] as Map<String, dynamic>)
+    (json[ServiceModelKey.duty] as Map<String, dynamic>)
         .entries
         .forEach((element) {
       final role = UserRole.getUserRoleFromString(element.key);
@@ -55,7 +59,7 @@ class ServiceModel implements Comparable<ServiceModel> {
     });
 
     List<SongRecord> songs = [];
-    (json[DataProviderKey.songs] as List<dynamic>).forEach((element) {
+    (json[ServiceModelKey.songs] as List<dynamic>).forEach((element) {
       songs.add(SongRecord.fromJson(element as Map<String, dynamic>));
     });
 
@@ -73,13 +77,13 @@ class ServiceModel implements Comparable<ServiceModel> {
 
   Map<String, dynamic> toJson() {
     return {
-      DataProviderKey.year: date.year,
-      DataProviderKey.month: date.month,
-      DataProviderKey.day: date.day,
-      DataProviderKey.monthGroup: date.monthGroup,
-      DataProviderKey.duty: dutyJson,
-      DataProviderKey.rehearsalDates: rehearsalDates.map((e) => e.toJson()),
-      DataProviderKey.songs: songs.map((e) => e.toJson()),
+      YearMonthDayKey.year: date.year,
+      YearMonthDayKey.month: date.month,
+      YearMonthDayKey.day: date.day,
+      ServiceModelKey.monthGroup: date.monthGroup,
+      ServiceModelKey.duty: dutyJson,
+      ServiceModelKey.rehearsalDates: rehearsalDates.map((e) => e.toJson()),
+      ServiceModelKey.songs: songs.map((e) => e.toJson()),
     };
   }
 

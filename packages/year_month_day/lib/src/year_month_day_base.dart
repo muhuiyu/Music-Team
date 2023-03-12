@@ -8,15 +8,19 @@ class YearMonthDayKey {
 }
 
 class YearMonthDay extends Equatable implements Comparable<YearMonthDay> {
-  int year;
-  int month;
-  int day;
+  final int year;
+  final int month;
+  final int day;
 
   YearMonthDay({
     required this.year,
     required this.month,
     required this.day,
   });
+
+  DateTime get dateTime {
+    return DateTime(year, month, day);
+  }
 
   factory YearMonthDay.fromJson(Map<String, dynamic> json) {
     return YearMonthDay(
@@ -33,16 +37,36 @@ class YearMonthDay extends Equatable implements Comparable<YearMonthDay> {
     };
   }
 
-  DateTime get dateTime {
-    return DateTime(year, month, day);
-  }
-
   String dateString({bool isYearDisplaying = false}) {
     if (isYearDisplaying) {
       return '${getMonthStringFromInt(month)} $day, $year';
     } else {
       return '${getMonthStringFromInt(month)} $day';
     }
+  }
+
+  YearMonthDay add(Duration duration) {
+    return dateTime.add(duration).yearMonthDay;
+  }
+
+  static List<List<YearMonthDay>> getWeeks(int year, int month) {
+    List<List<YearMonthDay>> weeks = [];
+
+    final sundays =
+        YearMonthDay.getWeekdaysInMonths(DateTime.sunday, year, month, month);
+
+    if (sundays.first.day != 1) {
+      sundays.insert(0, sundays.first.add(const Duration(days: -7)));
+    }
+
+    sundays.forEach((sunday) {
+      List<YearMonthDay> week = [];
+      for (var i = 0; i < DateTime.daysPerWeek; i++) {
+        week.add(sunday.add(Duration(days: i)));
+      }
+      weeks.add(week);
+    });
+    return weeks;
   }
 
   static int numberOfDaysInMonth(int year, int month) {
@@ -122,12 +146,18 @@ class YearMonthDay extends Equatable implements Comparable<YearMonthDay> {
 
   static List<String> get monthsStrings {
     return [
-      'January & February',
-      'March & April',
-      'May & June',
-      'July & August',
-      'September & October',
-      'November & December',
+      // 'January & February',
+      // 'March & April',
+      // 'May & June',
+      // 'July & August',
+      // 'September & October',
+      // 'November & December',
+      'Jan & Feb',
+      'Mar & Apr',
+      'May & Jun',
+      'Jul & Aug',
+      'Sep & Oct',
+      'Nov & Dec',
     ];
   }
 
