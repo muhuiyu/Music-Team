@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:music_team_mobile/api/providers/auth_provider.dart';
+import 'package:music_roster_api/music_roster_api.dart';
 import 'package:music_team_mobile/constants/constants.dart';
 import 'package:music_team_mobile/widgets/custom_button.dart';
 import 'package:provider/provider.dart';

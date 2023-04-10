@@ -35,6 +35,12 @@ dependencies:
   music_roster_models:
     path: ../../../packages/music_roster_models
 
+  music_roster_api:
+    path: ../../../packages/music_roster_api
+  
+  year_month_day:
+    path: ../../../packages/year_month_day
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -55,6 +61,7 @@ dependencies:
   google_sign_in: ^6.0.1
   path_provider: ^2.0.13
   webview_flutter: ^4.0.5
+  vertical_scrollable_tabview: ^0.0.7
 
 dev_dependencies:
   flutter_test:

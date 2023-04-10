@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:music_team_admin/constants/app_colors.dart';
-import 'package:music_team_admin/constants/app_text_style.dart';
 import 'package:music_team_admin/constants/constants.dart';
-import 'package:music_team_admin/constants/paddings.dart';
-import 'package:music_team_admin/models/service/service_model.dart';
-import 'package:music_team_admin/models/service/song.dart';
-import 'package:music_team_admin/models/service/song_record.dart';
+import 'package:music_roster_models/music_roster_models.dart';
 import 'package:music_team_admin/modules/dashboard/service_details_link_list.dart';
 import 'package:music_team_admin/modules/dashboard/service_details_member_link.dart';
 import 'package:music_team_admin/modules/dashboard/service_details_song_list.dart';

@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:music_roster_api/music_roster_api.dart';
 import 'package:music_team_admin/constants/constants.dart';
+import 'package:music_roster_api/music_roster_api.dart';
 import 'package:music_team_admin/main.dart';
 import 'package:music_team_admin/models/common/screen_name.dart';
 import 'package:music_roster_models/music_roster_models.dart';
 import 'package:music_team_admin/modules/common/widgets/custom_page.dart';
 import 'package:music_team_admin/modules/common/widgets/search_bar.dart';
-import 'package:music_team_admin/modules/song_library/edit_song_dialog.dart';
-import 'package:music_team_admin/modules/song_library/song_library_table.dart';
+import 'package:music_team_admin/modules/manage_members/widgets/edit_member_dialog.dart';
+import 'package:music_team_admin/modules/manage_members/widgets/manage_members_table.dart';
 import 'package:music_team_admin/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 
-class SongLibraryScreen extends StatefulWidget {
-  const SongLibraryScreen({super.key});
+class ManageMembersScreen extends StatefulWidget {
+  const ManageMembersScreen({super.key});
 
   @override
-  State<SongLibraryScreen> createState() => _SongLibraryScreenState();
+  State<ManageMembersScreen> createState() => _ManageMembersScreenState();
 }
 
-class _SongLibraryScreenState extends State<SongLibraryScreen> with RouteAware {
+class _ManageMembersScreenState extends State<ManageMembersScreen>
+    with RouteAware {
   late TextEditingController _editingController;
-  late Map<String, Song> _songs = {};
-  late List<Song> _displayedSongs = [];
+  late Map<String, UserModel> _users = {};
+  late List<UserModel> _displayedUsers = [];
   late DataProvider _dataProvider;
 
   @override
@@ -40,9 +41,13 @@ class _SongLibraryScreenState extends State<SongLibraryScreen> with RouteAware {
   @override
   void dispose() {
     _editingController.dispose();
-    _songs.clear();
-    _displayedSongs.clear();
+    _users.clear();
+    _displayedUsers.clear();
     super.dispose();
+  }
+
+  int getTotalNumberOfPages(List<UserModel> users) {
+    return (users.length / DataProvider.numberOfEntriesPerPage).ceil();
   }
 
   @override
@@ -51,15 +56,11 @@ class _SongLibraryScreenState extends State<SongLibraryScreen> with RouteAware {
     super.didPopNext();
   }
 
-  int getTotalNumberOfPages(List<Song> songs) {
-    return (songs.length / DataProvider.numberOfEntriesPerPage).ceil();
-  }
-
   _fetchData() async {
-    _dataProvider.fetchAllSongs().then((value) {
+    _dataProvider.fetchAllUsers().then((value) {
       setState(() {
-        _songs = value;
-        _displayedSongs = _songs.values.toList();
+        _users = value;
+        _displayedUsers = _users.values.toList();
       });
     }).onError((error, stackTrace) {
       AppMessage.errorMessage(error.toString());
@@ -69,9 +70,9 @@ class _SongLibraryScreenState extends State<SongLibraryScreen> with RouteAware {
   _filterSearchResults(String query) {
     setState(() {
       if (query.isEmpty) {
-        _displayedSongs = _songs.values.toList();
+        _displayedUsers = _users.values.toList();
       } else {
-        _displayedSongs = _songs.values
+        _displayedUsers = _users.values
             .where(
                 (user) => user.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
@@ -79,15 +80,15 @@ class _SongLibraryScreenState extends State<SongLibraryScreen> with RouteAware {
     });
   }
 
-  _onEditButtonPressed(Song song) async {
-    final Song updatedSong = await showDialog(
+  _onEditButtonPressed(UserModel user) async {
+    final UserModel updatedUser = await showDialog(
       context: context,
       builder: (context) {
-        return EditSongDialog(song: song);
+        return EditMemberDialog(user: user);
       },
     );
-    if (updatedSong != null) {
-      _dataProvider.updateSong(updatedSong).onError(
+    if (updatedUser != null) {
+      _dataProvider.updateUser(updatedUser).onError(
           (error, stackTrace) => AppMessage.errorMessage(error.toString()));
     }
   }
@@ -95,7 +96,7 @@ class _SongLibraryScreenState extends State<SongLibraryScreen> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return CustomPage(
-      currentScreen: ScreenName.songLibrary,
+      currentScreen: ScreenName.manageMembers,
       widgets: [
         _renderHeader(),
         Paddings.inlineSpacingBox,
@@ -104,17 +105,17 @@ class _SongLibraryScreenState extends State<SongLibraryScreen> with RouteAware {
     );
   }
 
-  _showAddSongDialog() async {
-    final Song newSong = await showDialog(
+  _showAddMemberDialog() async {
+    final UserModel newUser = await showDialog(
       context: context,
       builder: (context) {
-        return EditSongDialog(
-          song: Song.emptySong,
+        return EditMemberDialog(
+          user: UserModel.emptyUser,
         );
       },
     );
-    if (newSong != null) {
-      _dataProvider.addSong(newSong).onError(
+    if (newUser != null) {
+      _dataProvider.addUser(newUser).onError(
           (error, stackTrace) => AppMessage.errorMessage(error.toString()));
     }
   }
@@ -130,9 +131,9 @@ class _SongLibraryScreenState extends State<SongLibraryScreen> with RouteAware {
         ),
         const Spacer(),
         CustomTextButton(
-            text: AppText.addSongButtonText,
+            text: AppText.addMemberButtonText,
             onPressed: () {
-              _showAddSongDialog();
+              _showAddMemberDialog();
             },
             type: CustomButtonType.primary),
       ],
@@ -140,11 +141,11 @@ class _SongLibraryScreenState extends State<SongLibraryScreen> with RouteAware {
   }
 
   _renderTable() {
-    if (_songs.isEmpty) {
+    if (_users.isEmpty) {
       return Container();
     }
-    return SongLibraryTable(
-      songs: _displayedSongs,
+    return ManageMembersTable(
+      users: _displayedUsers,
       onEditButtonPressed: _onEditButtonPressed,
     );
   }

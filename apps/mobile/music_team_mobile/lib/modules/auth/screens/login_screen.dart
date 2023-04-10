@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_team_mobile/constants/constants.dart';
-import 'package:music_team_mobile/api/providers/auth_provider.dart';
-import 'package:music_team_mobile/modules/account/account_screen.dart';
+import 'package:music_roster_api/music_roster_api.dart';
 import 'package:music_team_mobile/modules/auth/widgets/google_login_button.dart';
 import 'package:music_team_mobile/router/router.dart';
 import 'package:provider/provider.dart';
@@ -84,13 +83,13 @@ class _LoginScreenState extends State<LoginScreen> {
           Paddings.inlineSpacingBox,
           Text(
             'Music Team Roster',
-            style:
-                AppTextStyle.getTextStyle(AppFont.h1, AppColors.firebaseYellow),
+            style: AppTextStyle.getTextStyle(AppFont.h1,
+                color: AppColors.firebaseYellow),
           ),
           Text(
             'St. George Church',
-            style:
-                AppTextStyle.getTextStyle(AppFont.h2, AppColors.firebaseOrange),
+            style: AppTextStyle.getTextStyle(AppFont.h2,
+                color: AppColors.firebaseOrange),
           ),
         ],
       ),

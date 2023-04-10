@@ -2,31 +2,21 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:music_team_admin/helpers/app_message.dart';
-import 'package:music_team_admin/models/common/screen_name.dart';
-import 'package:music_team_admin/modules/auth/login_screen.dart';
-import 'package:music_team_admin/modules/common/widgets/custom_page.dart';
-import 'package:music_team_admin/modules/dashboard/dashboard_screen.dart';
-import 'package:music_team_admin/modules/manage_members/manage_members_screen.dart';
-import 'package:music_team_admin/modules/planner/planner_screen.dart';
-import 'package:music_team_admin/modules/service_model/service_details_screen.dart';
+import 'package:music_roster_api/music_roster_api.dart';
+import 'package:music_team_admin/firebase_options.dart';
 import 'package:music_team_admin/modules/song_library/song_library_screen.dart';
 import 'package:music_team_admin/responsive/menu_app_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:music_team_admin/api/providers/auth_provider.dart';
-import 'package:music_team_admin/api/providers/data_provider.dart';
 import 'package:music_team_admin/constants/constants.dart';
 import 'package:music_team_admin/router/router.dart';
-import 'package:music_team_admin/base/service_locator.dart';
-import 'package:music_team_admin/widgets/loader.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await dotenv.load(fileName: '.env');
-  await setupLocator();
+  await setupLocator(DefaultFirebaseOptions.currentPlatform);
   runApp(const TeamRoster());
 
   // return runZonedGuarded(() async {

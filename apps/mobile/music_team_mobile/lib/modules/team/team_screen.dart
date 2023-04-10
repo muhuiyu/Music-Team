@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_team_mobile/constants/constants.dart';
 import 'package:music_team_mobile/models/common/screen_name.dart';
-import 'package:music_team_mobile/models/common/year_month_day.dart';
+import 'package:year_month_day/year_month_day.dart';
 import 'package:music_team_mobile/modules/common/screens/base_screen.dart';
 import 'package:music_team_mobile/widgets/custom_dropdown.dart';
 

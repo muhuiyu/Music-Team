@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:music_team_mobile/api/mock_data.dart';
+import 'package:music_team_mobile/mock_data.dart';
 import 'package:music_team_mobile/constants/constants.dart';
-import 'package:music_team_mobile/models/common/screen_name.dart';
-import 'package:music_team_mobile/models/service/service_model.dart';
-import 'package:music_team_mobile/models/service/song_record.dart';
-import 'package:music_team_mobile/modules/common/widgets/custom_app_bar.dart';
+import 'package:music_roster_models/music_roster_models.dart';
 import 'package:music_team_mobile/modules/service_model/service_details_list_tile.dart';
-import 'package:music_team_mobile/router/router.dart';
+import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
 
 class ServiceDetailsScreen extends StatefulWidget {
   const ServiceDetailsScreen({super.key});
@@ -16,9 +12,30 @@ class ServiceDetailsScreen extends StatefulWidget {
   State<ServiceDetailsScreen> createState() => _ServiceDetailsScreenState();
 }
 
-class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
+class _ServiceDetailsScreenState extends State<ServiceDetailsScreen>
+    with SingleTickerProviderStateMixin {
   // final ServiceModel service = Get.arguments[RoutesArgumentKey.serviceModel];
   final ServiceModel _service = serviceModelTestEntry;
+  final List<String> _tabNames = ['song', 'members', 'note'];
+  late List<Widget> _tabs = [];
+  late TabController tabController;
+
+  @override
+  void initState() {
+    tabController = TabController(length: _tabNames.length, vsync: this);
+    _tabs = [
+      _renderSongsPage(),
+      _renderMembersPage(),
+      _renderNotePage(),
+    ];
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 
   _onSongTap(SongRecord song) {
     // TODO:
@@ -26,36 +43,45 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    TabBar _tabbar = TabBar(
+      isScrollable: true,
+      controller: tabController,
+      indicatorPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+      indicatorColor: Colors.blue,
+      labelColor: Colors.blue,
+      unselectedLabelColor: AppColors.grey,
+      indicatorWeight: 3.0,
+      tabs: _tabNames
+          .map((e) => Text(e.toUpperCase(), style: AppTextStyle.tabbarItem))
+          .toList(),
+      onTap: (index) {
+        VerticalScrollableTabBarStatus.setIndex(index);
+      },
+    );
+
     return Scaffold(
-      appBar: CustomAppBar(currentScreen: ScreenName.serviceDetails),
       body: SafeArea(
-        child: DefaultTabController(
-            length: 3,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Paddings.cardGridInlineSpacingBox,
-                  _renderHeader(),
-                  TabBar(
-                    labelColor: Colors.blue,
-                    unselectedLabelColor: AppColors.grey,
-                    tabs: const [
-                      Tab(text: AppText.songs),
-                      Tab(text: AppText.members),
-                      Tab(text: AppText.note),
-                    ],
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        _renderSongsPage(),
-                        _renderMembersPage(),
-                        _renderNotePage(),
-                      ],
-                    ),
-                  )
-                ])),
+        child: VerticalScrollableTabView(
+          tabController: tabController,
+          listItemData: _tabNames,
+          verticalScrollPosition: VerticalScrollPosition.begin,
+          eachItemChild: (object, index) => _tabs[index] ?? Container(),
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              collapsedHeight: 150,
+              expandedHeight: 150,
+              flexibleSpace: _renderHeader(),
+              bottom: PreferredSize(
+                preferredSize: _tabbar.preferredSize,
+                child: Material(
+                  color: AppColors.accent,
+                  child: _tabbar,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

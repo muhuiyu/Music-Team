@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_team_admin/constants/constants.dart';
-import 'package:music_team_admin/models/service/service_model.dart';
+import 'package:music_roster_models/music_roster_models.dart';
 
 class ServiceDetailsMemberList extends StatelessWidget {
   const ServiceDetailsMemberList({

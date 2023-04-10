@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:music_team_admin/constants/constants.dart';
 import 'package:music_team_admin/extensions/string_extensions.dart';
-import 'package:music_team_admin/models/common/year_month_day.dart';
+import 'package:year_month_day/year_month_day.dart';
 import 'package:music_team_admin/widgets/custom_dropdown.dart';
 
-class YearQuarterFilter extends StatefulWidget {
+class YearMonthFilter extends StatefulWidget {
   final Function(int year, List<int> months) onChanged;
-  const YearQuarterFilter({
+  const YearMonthFilter({
     super.key,
     required this.onChanged,
   });
 
   @override
-  State<YearQuarterFilter> createState() => _YearQuarterFilterState();
+  State<YearMonthFilter> createState() => _YearMonthFilterState();
 }
 
-class _YearQuarterFilterState extends State<YearQuarterFilter> {
+class _YearMonthFilterState extends State<YearMonthFilter> {
   int selectedYear = YearMonthDay.now().year;
   List<int> selectedMonths = [];
 

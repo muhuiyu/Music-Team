@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:music_team_admin/models/common/screen_name.dart';
-import 'package:music_team_admin/models/service/service_model.dart';
-import 'package:music_team_admin/models/user/user_model.dart';
+import 'package:music_roster_models/music_roster_models.dart';
 
 class Routes {
   Routes._();

@@ -5,6 +5,7 @@ class AppText {
   static const eventDetailsTitle = 'Event Details';
   static const notificationTitle = 'Notifications';
   static const calendarTitle = 'Calendar';
+  static const scheduleTitle = 'Schedule';
   static const teamTitle = 'Team';
   static const accountTitle = 'Account';
 

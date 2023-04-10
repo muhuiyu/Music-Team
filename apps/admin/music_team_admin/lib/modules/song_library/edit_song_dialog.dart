@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_team_admin/constants/constants.dart';
-import 'package:music_team_admin/models/service/song.dart';
+import 'package:music_roster_models/music_roster_models.dart';
 import 'package:music_team_admin/widgets/custom_button.dart';
 import 'package:music_team_admin/widgets/custom_textfield.dart';
 

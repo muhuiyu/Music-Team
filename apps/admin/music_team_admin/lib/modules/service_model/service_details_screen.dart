@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_team_admin/api/mock_data.dart';
 import 'package:music_team_admin/constants/constants.dart';
 import 'package:music_team_admin/models/common/screen_name.dart';
-import 'package:music_team_admin/models/service/service_model.dart';
-import 'package:music_team_admin/models/service/song_record.dart';
+import 'package:music_roster_models/music_roster_models.dart';
 import 'package:music_team_admin/modules/common/widgets/custom_app_bar.dart';
 import 'package:music_team_admin/modules/service_model/service_details_list_tile.dart';
 import 'package:music_team_admin/router/router.dart';
@@ -17,8 +15,7 @@ class ServiceDetailsScreen extends StatefulWidget {
 }
 
 class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
-  // final ServiceModel service = Get.arguments[RoutesArgumentKey.serviceModel];
-  final ServiceModel _service = serviceModelTestEntry;
+  final ServiceModel _service = Get.arguments[RoutesArgumentKey.serviceModel];
 
   _onSongTap(SongRecord song) {
     // TODO:

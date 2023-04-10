@@ -1,29 +1,23 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:music_team_mobile/models/common/screen_name.dart';
-import 'package:music_team_mobile/modules/common/screens/main_screen.dart';
-import 'package:music_team_mobile/modules/dashboard/dashboard_screen.dart';
-import 'package:music_team_mobile/modules/service_model/service_details_screen.dart';
-import 'package:music_team_mobile/modules/team/team_screen.dart';
+import 'package:music_roster_api/music_roster_api.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:music_team_mobile/api/providers/auth_provider.dart';
-import 'package:music_team_mobile/api/providers/data_provider.dart';
 import 'package:music_team_mobile/constants/constants.dart';
 import 'package:music_team_mobile/router/router.dart';
-import 'package:music_team_mobile/base/service_locator.dart';
-import 'package:music_team_mobile/widgets/loader.dart';
+import 'package:music_team_mobile/firebase_options.dart';
+import 'package:music_team_mobile/models/common/screen_name.dart';
+import 'package:music_team_mobile/modules/common/screens/main_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setPreferredOrientations();
   // await dotenv.load(fileName: '.env');
-  await setupLocator();
+  await setupLocator(DefaultFirebaseOptions.currentPlatform);
 
   return runZonedGuarded(() async {
     runApp(const TeamRoster());
@@ -66,7 +60,7 @@ class TeamRoster extends StatelessWidget {
               );
             },
             home: MainScreen(
-              currentScreen: ScreenName.dashboard,
+              currentScreen: ScreenName.serviceDetails,
             ),
             // home: const ServiceDetailsScreen(),
           ),

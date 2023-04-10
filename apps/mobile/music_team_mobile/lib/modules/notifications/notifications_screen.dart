@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_team_mobile/api/providers/data_provider.dart';
-import 'package:music_team_mobile/constants/app_text.dart';
-import 'package:music_team_mobile/helpers/app_message.dart';
+import 'package:music_roster_api/music_roster_api.dart';
 import 'package:music_team_mobile/models/common/screen_name.dart';
 import 'package:music_team_mobile/models/notifications/team_notification.dart';
 import 'package:music_team_mobile/modules/common/widgets/custom_page.dart';
@@ -26,10 +24,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   }
 
   _fetchData() async {
-    items = await Provider.of<DataProvider>(context, listen: false)
-        .fetchNotifications()
-        .onError(
-            (error, stackTrace) => AppMessage.errorMessage(error.toString()));
+    // items = await Provider.of<DataProvider>(context, listen: false)
+    //     .fetchNotifications()
+    //     .onError(
+    //         (error, stackTrace) => AppMessage.errorMessage(error.toString()));
   }
 
   @override

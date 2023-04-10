@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:music_team_admin/api/providers/data_provider.dart';
 import 'package:music_team_admin/constants/constants.dart';
-import 'package:music_team_admin/helpers/app_message.dart';
+import 'package:music_roster_api/music_roster_api.dart';
 import 'package:music_team_admin/models/common/screen_name.dart';
-import 'package:music_team_admin/models/service/service_model.dart';
-import 'package:music_team_admin/models/user/user_role.dart';
+import 'package:music_roster_models/music_roster_models.dart';
 import 'package:music_team_admin/modules/common/widgets/custom_page.dart';
 import 'package:music_team_admin/modules/dashboard/service_details_dialog.dart';
 import 'package:provider/provider.dart';

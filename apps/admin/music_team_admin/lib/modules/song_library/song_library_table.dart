@@ -3,7 +3,7 @@ import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:music_team_admin/constants/constants.dart';
-import 'package:music_team_admin/models/service/song.dart';
+import 'package:music_roster_models/music_roster_models.dart';
 
 class SongLibraryTable extends StatelessWidget {
   final List<Song> songs;

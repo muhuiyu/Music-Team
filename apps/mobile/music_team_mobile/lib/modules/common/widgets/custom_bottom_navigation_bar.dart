@@ -13,13 +13,6 @@ class CustomBottomNavigationBar extends StatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  final List<ScreenName> _screens = [
-    ScreenName.dashboard,
-    ScreenName.calendar,
-    ScreenName.team,
-    ScreenName.account,
-  ];
-
   late int _selectedIndex;
 
   @override
@@ -30,8 +23,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   void _onItemTapped(int index) {
     setState(() {
-      Get.offAndToNamed(_screens[index].route);
+      _selectedIndex = index;
     });
+    Get.offAndToNamed(ScreenName.roots[index].route);
   }
 
   @override
@@ -40,7 +34,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       currentIndex: _selectedIndex,
       selectedItemColor: AppColors.primary,
       onTap: _onItemTapped,
-      items: _screens
+      items: ScreenName.roots
           .map((e) => BottomNavigationBarItem(
                 icon: Icon(e.getIconData(false)),
                 activeIcon: Icon(e.getIconData(true)),
